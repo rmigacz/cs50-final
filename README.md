@@ -1,6 +1,6 @@
 # Chinchilla, the Almonds Eater
 
-## This the final project for online course CS50: Introduction to Computer Science.
+## This is the final project for online course CS50: Introduction to Computer Science.
 ## https://www.edx.org/course/introduction-computer-science-harvardx-cs50x
 
 The project is a 2D game in which you are becoming a Chinchilla and you have to
@@ -9,7 +9,9 @@ eat as many almonds as possible in a certain period of time.
 ![GameGif](https://raw.githubusercontent.com/rmigacz/cs50-final/assets/gameplay.gif)
 
 It is an attempt of rewriting the first project from the course made in Scratch: <br/>
-https://scratch.mit.edu/projects/54065950/.
+https://scratch.mit.edu/projects/54065950/ </br>
+inspired by seminar "Writing 2D Games in C using SDL": </br>
+http://cs50.tv/2015/fall/#seminars
 
 ## The main targets of creating Chinchilla The Almonds Eater game
 1. Learn more about programming in C language by writing a relatively simple game
