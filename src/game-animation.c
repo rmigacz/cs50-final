@@ -31,9 +31,9 @@ int animate(Window* window, Footer* footer, Board* board,  Sprite* chinchilla, S
 	Position chinchilla_position = {get_sprite_x_position(chinchilla), get_sprite_y_position(chinchilla)};
 	Input pressed_key = {0, 0, 0, 0, 0};
 
-    Uint32 start_time = SDL_GetTicks();
-    Uint32 current_time = 0;
-    Uint32 eaten_almonds = 0;
+	Uint32 start_time = SDL_GetTicks();
+	Uint32 current_time = 0;
+	Uint32 eaten_almonds = 0;
 	char footer_message[100];
 
 	while (!pressed_key.close_requested && current_time < TIME_LIMIT) {
