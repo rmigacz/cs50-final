@@ -6,6 +6,7 @@
 #include "../include/Board.h"
 #include "../include/Sprite.h"
 
-int animate(Window* window, Footer* footer, Board* board,  Sprite* chinchilla, Sprite** almonds);
+int animate(Window *window, Footer *footer, Board *board, Sprite *chinchilla,
+		Sprite **almonds);
 
 #endif

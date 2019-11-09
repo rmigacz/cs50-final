@@ -5,8 +5,8 @@
 static ERRNO err = INIT_SUCCESS;
 
 Footer* create_footer(int x, int y, int w, int h) {
-	Footer* footer = malloc(sizeof(Footer));
-	if (footer == NULL)  {
+	Footer *footer = malloc(sizeof(Footer));
+	if (footer == NULL) {
 		return (err = FAILED_TO_INIT, NULL);
 	}
 
@@ -30,23 +30,24 @@ Footer* create_footer(int x, int y, int w, int h) {
 	return footer;
 }
 
-void set_footer_message(char* message, Footer* footer) {
+void set_footer_message(char *message, Footer *footer) {
 	footer->message = message;
 }
 
-SDL_Texture* create_footer_texture(Footer* footer, SDL_Renderer* renderer) {
-	SDL_Surface* surface = TTF_RenderText_Solid(footer->font, footer->message, footer->message_color);
+SDL_Texture* create_footer_texture(Footer *footer, SDL_Renderer *renderer) {
+	SDL_Surface *surface = TTF_RenderText_Solid(footer->font, footer->message,
+			footer->message_color);
 	if (surface == NULL) {
 		printf("Error while creating footer's surface: %s", TTF_GetError());
 		return NULL;
 	}
 
-	SDL_Texture* texture = create_texture_from_surface(renderer, surface);
+	SDL_Texture *texture = create_texture_from_surface(renderer, surface);
 	SDL_FreeSurface(surface);
 	return texture;
 }
 
-void free_footer(Footer* footer) {
+void free_footer(Footer *footer) {
 	TTF_CloseFont(footer->font);
 	footer->message = NULL;
 	free(footer);
