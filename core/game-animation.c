@@ -1,10 +1,11 @@
-#include "../include/game-animation.h"
+#include "game-animation.h"
 
+#include "game-parameters.h"
+#include "game-board-functions.h"
+
+#include "../graphics/graphics.h"
 #include "../ui/Position.h"
 #include "../ui/Velocity.h"
-#include "../include/game-parameters.h"
-#include "../graphics/graphics.h"
-#include "../include/game-board-functions.h"
 
 static void process_key_events(Input *input);
 

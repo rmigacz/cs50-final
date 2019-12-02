@@ -1,4 +1,7 @@
-#include "../include/game-functions.h"
+#include "game-functions.h"
+
+#include "game-parameters.h"
+#include "game-animation.h"
 
 #include "../graphics/graphics.h"
 #include "../ui/Board.h"
@@ -6,8 +9,7 @@
 #include "../ui/Footer.h"
 #include "../ui/Board.h"
 #include "../ui/Sprite.h"
-#include "../include/game-parameters.h"
-#include "../include/game-animation.h"
+
 
 #include <SDL2/SDL_ttf.h>
 #include <time.h>

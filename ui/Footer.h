@@ -1,7 +1,7 @@
 #ifndef FOOTER_H
 #define FOOTER_H
 
-#include "../include/game-errno.h"
+#include "../core/game-errno.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>

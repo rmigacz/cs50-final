@@ -1,7 +1,7 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include "../include/game-errno.h"
+#include "../core/game-errno.h"
 
 #include <SDL2/SDL.h>
 #include <stdlib.h>

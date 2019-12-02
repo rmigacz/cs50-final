@@ -1,7 +1,7 @@
 #ifndef BOARDFUNC_H
 #define BOARDFUNC_H
 
-#include "../include/game-errno.h"
+#include "../core/game-errno.h"
 
 #include <SDL2/SDL.h>
 #include <stdlib.h>

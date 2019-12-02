@@ -2,7 +2,7 @@
 #define WINDOW_H
 
 #include "Sprite.h"
-#include "../include/game-errno.h"
+#include "../core/game-errno.h"
 
 #include <SDL2/SDL.h>
 #include <stdlib.h>
