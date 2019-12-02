@@ -3,7 +3,7 @@
 #include "../include/Position.h"
 #include "../include/Velocity.h"
 #include "../include/game-parameters.h"
-#include "../include/game-sdl-utils.h"
+#include "../graphics/graphics.h"
 #include "../include/game-board-functions.h"
 
 static void process_key_events(Input *input);

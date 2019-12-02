@@ -1,5 +1,6 @@
 #include "../include/game-functions.h"
 
+#include "../graphics/graphics.h"
 #include "../include/Board.h"
 #include "../include/Window.h"
 #include "../include/Footer.h"
@@ -21,13 +22,7 @@ static void cleanup(Window *window, Footer *footer, Board *board,
 int start_game() {
 	srand(time(NULL));
 
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0) {
-		printf("Error initializing SDL: %s\n", SDL_GetError());
-		return 1;
-	}
-
-	if (TTF_Init() != 0) {
-		printf("Error while initialization SDL_TTF: %s\n", TTF_GetError());
+	if (init_sdl() != 0) {
 		return 1;
 	}
 
@@ -111,6 +106,5 @@ static void cleanup(Window *window, Footer *footer, Board *board,
 		free(almonds);
 	}
 
-	TTF_Quit();
-	SDL_Quit();
+	cleanup_sdl();
 }

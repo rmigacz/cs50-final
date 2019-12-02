@@ -1,13 +1,32 @@
-#include "../include/game-sdl-utils.h"
+#include "graphics.h"
 
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdlib.h>
 
-SDL_Window* create_sdl_window(const char *title, const int width,
-		const int height) {
-	return SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED, width, height, 0);
+int init_sdl() {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0) {
+		printf("Error initializing SDL: %s\n", SDL_GetError());
+		return 1;
+	}
+
+	if (TTF_Init() != 0) {
+		printf("Error while initialization SDL_TTF: %s\n", TTF_GetError());
+		return 1;
+	}
+
+	return 0;
 }
+
+void cleanup_sdl() {
+	TTF_Quit();
+	SDL_Quit();
+}
+
+SDL_Window* create_sdl_window(const char *title, const int w, const int h) {
+	return SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_CENTERED, w, h, 0);
+} 
 
 SDL_Renderer* create_renderer(SDL_Window *window) {
 	return SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -35,14 +54,14 @@ SDL_Texture* create_texture_from_surface(SDL_Renderer *renderer,
 	return SDL_CreateTextureFromSurface(renderer, surface);
 }
 
-SDL_Rect create_texture_rectangle(SDL_Texture *texture, const int width,
-		const int height) {
+SDL_Rect create_texture_rectangle(SDL_Texture *texture, const int w,
+		const int h) {
 	SDL_Rect dest;
 	dest.x = 0;
 	dest.y = 0;
 	SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
-	dest.w = width;
-	dest.h = height;
+	dest.w = w;
+	dest.h = h;
 
 	return dest;
 }

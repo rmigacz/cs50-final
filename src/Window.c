@@ -1,6 +1,6 @@
 #include "../include/Window.h"
 
-#include "../include/game-sdl-utils.h"
+#include "../graphics/graphics.h"
 
 static ERRNO err = INIT_SUCCESS;
 

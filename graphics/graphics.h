@@ -1,5 +1,5 @@
-#ifndef SDLUTILS_H
-#define SDLUTILS_H
+#ifndef SDL_H
+#define SDL_H
 
 #include <SDL2/SDL.h>
 
@@ -11,8 +11,11 @@ typedef struct _Input {
 	int close_requested;
 } Input;
 
-SDL_Window* create_sdl_window(const char *title, const int width,
-		const int height);
+int init_sdl();
+
+void cleanup_sdl();
+
+SDL_Window* create_sdl_window(const char *title, const int w, const int h);
 
 SDL_Renderer* create_renderer(SDL_Window *window);
 
