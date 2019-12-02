@@ -1,7 +1,7 @@
 #include "../include/game-animation.h"
 
-#include "../include/Position.h"
-#include "../include/Velocity.h"
+#include "../ui/Position.h"
+#include "../ui/Velocity.h"
 #include "../include/game-parameters.h"
 #include "../graphics/graphics.h"
 #include "../include/game-board-functions.h"

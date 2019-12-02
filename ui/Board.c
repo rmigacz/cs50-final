@@ -1,4 +1,4 @@
-#include "../include/Board.h"
+#include "Board.h"
 
 #include <math.h>
 

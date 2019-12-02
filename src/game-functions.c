@@ -1,11 +1,11 @@
 #include "../include/game-functions.h"
 
 #include "../graphics/graphics.h"
-#include "../include/Board.h"
-#include "../include/Window.h"
-#include "../include/Footer.h"
-#include "../include/Board.h"
-#include "../include/Sprite.h"
+#include "../ui/Board.h"
+#include "../ui/Window.h"
+#include "../ui/Footer.h"
+#include "../ui/Board.h"
+#include "../ui/Sprite.h"
 #include "../include/game-parameters.h"
 #include "../include/game-animation.h"
 

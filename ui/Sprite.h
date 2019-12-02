@@ -11,9 +11,9 @@ typedef struct _Sprite {
 	SDL_Rect rectangle;
 } Sprite;
 
-Sprite* create_sprite(SDL_Renderer *renderer, const char *img_path,
-		const int sprite_width, const int sprite_height);
-
+Sprite* create_sprite(SDL_Renderer *renderer, const char *img_path, const int w,
+		const int h);
+ 
 void free_sprite(Sprite *sprite);
 
 int get_sprite_x_position();

@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "../include/Sprite.h"
+#include "Sprite.h"
 #include "../include/game-errno.h"
 
 #include <SDL2/SDL.h>

@@ -1,11 +1,11 @@
-#include "../include/Sprite.h"
+#include "Sprite.h"
 
 #include "../graphics/graphics.h"
 
 static ERRNO err = INIT_SUCCESS;
 
-Sprite* create_sprite(SDL_Renderer *renderer, const char *img_path,
-		const int sprite_width, const int sprite_height) {
+Sprite* create_sprite(SDL_Renderer *renderer, const char *img_path, const int w,
+		const int h) {
 	Sprite *sprite = malloc(sizeof(Sprite));
 	if (sprite == NULL) {
 		return (err = FAILED_TO_INIT, NULL);
@@ -17,8 +17,7 @@ Sprite* create_sprite(SDL_Renderer *renderer, const char *img_path,
 		return (err = FAILED_TO_INIT, NULL);
 	}
 
-	sprite->rectangle = create_texture_rectangle(sprite->texture, sprite_width,
-			sprite_height);
+	sprite->rectangle = create_texture_rectangle(sprite->texture, w, h);
 
 	return (err = INIT_SUCCESS, sprite);
 }

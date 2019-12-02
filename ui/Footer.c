@@ -1,4 +1,4 @@
-#include "../include/Footer.h"
+#include "Footer.h"
 
 #include "../graphics/graphics.h"
 
