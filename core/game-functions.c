@@ -4,10 +4,9 @@
 #include "game-animation.h"
 
 #include "../graphics/graphics.h"
-#include "../ui/Board.h"
+#include "../board/Board.h"
 #include "../ui/Window.h"
 #include "../ui/Footer.h"
-#include "../ui/Board.h"
 #include "../ui/Sprite.h"
 
 
