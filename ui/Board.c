@@ -2,12 +2,10 @@
 
 #include <math.h>
 
-static ERRNO err = INIT_SUCCESS;
-
 Board* create_board(const int map_rows, const int map_columns) {
 	Board *map = malloc(sizeof(Board));
 	if (map == NULL) {
-		return (err = FAILED_TO_INIT, NULL);
+		return NULL;
 	}
 
 	map->map_width = map_rows;
@@ -16,18 +14,18 @@ Board* create_board(const int map_rows, const int map_columns) {
 	map->fields = (int**) calloc(map_rows, sizeof(int*));
 	if (map->fields == NULL) {
 		free_board(map);
-		return (err = FAILED_TO_INIT, NULL);
+		return NULL;
 	}
 
 	for (int row = 0; row < map_rows; row++) {
 		map->fields[row] = (int*) calloc(map_columns, sizeof(int));
 		if (map->fields[row] == NULL) {
 			free_board(map);
-			return (err = FAILED_TO_INIT, NULL);
+			return NULL;
 		}
 	}
 
-	return (err = INIT_SUCCESS, map);
+	return map;
 }
 
 void free_board(Board *map) {
@@ -70,8 +68,4 @@ void print_board(Board *board) {
 		printf("\n");
 	}
 	printf("\n\n");
-}
-
-ERRNO get_board_error() {
-	return err;
 }

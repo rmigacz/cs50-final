@@ -2,12 +2,10 @@
 
 #include "../graphics/graphics.h"
 
-static ERRNO err = INIT_SUCCESS;
-
 Footer* create_footer(int x, int y, int w, int h) {
 	Footer *footer = malloc(sizeof(Footer));
 	if (footer == NULL) {
-		return (err = FAILED_TO_INIT, NULL);
+		return NULL;
 	}
 
 	SDL_Rect area;
@@ -24,7 +22,7 @@ Footer* create_footer(int x, int y, int w, int h) {
 	if (footer->font == NULL) {
 		printf("Error while loading font: %s \n", TTF_GetError());
 		free_footer(footer);
-		return (err = FAILED_TO_INIT, NULL);
+		return NULL;
 	}
 
 	return footer;
@@ -51,8 +49,4 @@ void free_footer(Footer *footer) {
 	TTF_CloseFont(footer->font);
 	footer->message = NULL;
 	free(footer);
-}
-
-ERRNO get_footer_error() {
-	return err;
 }

@@ -1,7 +1,7 @@
 CC := gcc
 CFLAGS := `sdl2-config --libs --cflags` -lSDL2_ttf -ggdb3 -O0 --std=c99 -Wall -lSDL2_image -lm
 
-HDRS := graphics/graphics.h core/game-errno.h ui/Window.h ui/Footer.h ui/Board.h ui/Sprite.h ui/Position.h ui/Velocity.h core/game-parameters.h core/game-animation.h core/game-functions.h core/game-board-functions.h
+HDRS := graphics/graphics.h ui/Window.h ui/Footer.h ui/Board.h ui/Sprite.h ui/Position.h ui/Velocity.h core/game-parameters.h core/game-animation.h core/game-functions.h core/game-board-functions.h
 SRCS := graphics/graphics.c core/game.c ui/Window.c ui/Footer.c ui/Board.c ui/Sprite.c core/game-animation.c core/game-functions.c core/game-board-functions.c
 
 OBJS := $(SRCS:.c=.o)

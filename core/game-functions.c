@@ -31,7 +31,7 @@ int start_game() {
 	Window *window = create_window(WINDOW_TITLE, WINDOW_DIMENSION,
 			WINDOW_DIMENSION);
 	if (window == NULL) {
-		printf("%d", get_window_error());
+		printf("Failed to create window");
 		return 1;
 	}
 
@@ -40,14 +40,14 @@ int start_game() {
 			WINDOW_FOOTER_HEIGHT);
 	;
 	if (footer == NULL) {
-		printf("%d", get_footer_error());
+		printf("Failed to create footer");
 		cleanup(window, NULL, NULL, NULL, NULL);
 		return 1;
 	}
 
 	Board *board = create_board(BOARD_MAP_ROWS, BOARD_MAP_COLUMNS);
 	if (board == NULL) {
-		printf("%d", get_board_error());
+		printf("Failed to create board");
 		cleanup(window, footer, NULL, NULL, NULL);
 		return 1;
 	}
@@ -55,7 +55,7 @@ int start_game() {
 	Sprite *chinchilla = create_sprite(window->renderer, CHILLA_IMG,
 			CHINCHILLA_WIDTH, CHINCHILLA_HEIGHT);
 	if (chinchilla == NULL) {
-		printf("%d", get_sprite_error());
+		printf("Failed to create sprite - chinchilla");
 		cleanup(window, footer, board, NULL, NULL);
 		return 1;
 	}
@@ -70,7 +70,7 @@ int start_game() {
 		almonds[i] = create_sprite(window->renderer, ALMOND_IMG, ALMOND_WIDTH,
 				ALMOND_HEIGHT);
 		if (almonds[i] == NULL) {
-			printf("%d", get_sprite_error());
+			printf("Failed to create sprite - almond");
 			cleanup(window, footer, board, chinchilla, almonds);
 			return 1;
 		}

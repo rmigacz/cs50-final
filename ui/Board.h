@@ -1,8 +1,6 @@
 #ifndef BOARDFUNC_H
 #define BOARDFUNC_H
 
-#include "../core/game-errno.h"
-
 #include <SDL2/SDL.h>
 #include <stdlib.h>
 
@@ -29,8 +27,6 @@ int is_board_field_set(Board *board, Field field);
 void clear_board(Board *board);
 
 void print_board(Board *board);
-
-ERRNO get_board_error();
 
 #endif
 

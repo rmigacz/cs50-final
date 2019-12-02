@@ -1,8 +1,6 @@
 #ifndef FOOTER_H
 #define FOOTER_H
 
-#include "../core/game-errno.h"
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdlib.h>
@@ -21,7 +19,5 @@ void free_footer(Footer *footer);
 void set_footer_message(char *message, Footer *footer);
 
 SDL_Texture* create_footer_texture(Footer *footer, SDL_Renderer *renderer);
-
-ERRNO get_footer_error();
 
 #endif

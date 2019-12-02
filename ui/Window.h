@@ -2,7 +2,6 @@
 #define WINDOW_H
 
 #include "Sprite.h"
-#include "../core/game-errno.h"
 
 #include <SDL2/SDL.h>
 #include <stdlib.h>
@@ -24,7 +23,5 @@ void add_texture_to_window(SDL_Texture *texture, SDL_Rect rectangle,
 		Window *window);
 
 void update_window(Window *window);
-
-ERRNO get_window_error();
 
 #endif

@@ -2,24 +2,22 @@
 
 #include "../graphics/graphics.h"
 
-static ERRNO err = INIT_SUCCESS;
-
 Sprite* create_sprite(SDL_Renderer *renderer, const char *img_path, const int w,
 		const int h) {
 	Sprite *sprite = malloc(sizeof(Sprite));
 	if (sprite == NULL) {
-		return (err = FAILED_TO_INIT, NULL);
+		return NULL;
 	}
 
 	sprite->texture = create_texture_with_image(renderer, img_path);
 	if (sprite->texture == NULL) {
 		free_sprite(sprite);
-		return (err = FAILED_TO_INIT, NULL);
+		return NULL;
 	}
 
 	sprite->rectangle = create_texture_rectangle(sprite->texture, w, h);
 
-	return (err = INIT_SUCCESS, sprite);
+	return sprite;
 }
 
 void free_sprite(Sprite *sprite) {
@@ -47,8 +45,4 @@ void set_sprite_position(Sprite *sprite, const int x_position,
 		const int y_position) {
 	sprite->rectangle.x = x_position;
 	sprite->rectangle.y = y_position;
-}
-
-ERRNO get_sprite_error() {
-	return err;
 }

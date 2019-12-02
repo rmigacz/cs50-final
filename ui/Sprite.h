@@ -1,8 +1,6 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include "../core/game-errno.h"
-
 #include <SDL2/SDL.h>
 #include <stdlib.h>
 
@@ -26,7 +24,5 @@ int get_sprite_height();
 
 void set_sprite_position(Sprite *sprite, const int x_position,
 		const int y_position);
-
-ERRNO get_sprite_error();
 
 #endif
