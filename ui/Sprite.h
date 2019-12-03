@@ -14,6 +14,8 @@ Sprite* create_sprite(SDL_Renderer *renderer, const char *img_path, const int w,
  
 void free_sprite(Sprite *sprite);
 
+void free_sprites(Sprite **sprites, int length);
+
 int get_sprite_x_position();
 
 int get_sprite_y_position();

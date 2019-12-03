@@ -25,6 +25,15 @@ void free_sprite(Sprite *sprite) {
 	free(sprite), sprite = NULL;
 }
 
+void free_sprites(Sprite **sprites, int length) {
+	for (int i = 0; i < length; i++) {
+		if (sprites[i] != NULL) {
+			free_sprite(sprites[i]);
+		}
+	}
+	free(sprites);
+}
+
 int get_sprite_x_position(Sprite *sprite) {
 	return sprite->rectangle.x;
 }
