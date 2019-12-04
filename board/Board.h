@@ -26,10 +26,15 @@ void set_board_fields(Board *board, Field *fields, const int fields_count);
 
 int is_board_field_set(Board *board, Field field);
 
+int is_field_neighbour_set(Board *board, Field field);
+
 Position map_field_to_position(Field field);
 
 Field* map_position_to_fields(Position position, int row_fields_count,
 		int col_fields_count);
+
+Field draw_top_field(const int map_width, const int map_height,
+		const int row_fields_count, const int col_fields_count);
 
 void clear_board(Board *board);
 

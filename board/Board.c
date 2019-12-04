@@ -48,6 +48,75 @@ int is_board_field_set(Board *board, Field field) {
 	return board->fields[field.row_number][field.col_number] == 1;
 }
 
+int is_field_neighbour_set(Board *board, Field field) {
+	int row_number = field.row_number;
+	int col_number = field.col_number;
+
+	Field up_field = { row_number + 1, col_number };
+	if (up_field.row_number < BOARD_MAP_ROWS) {
+		if (is_board_field_set(board, up_field)) {
+			return 1;
+		} else {
+			is_field_neighbour_set(board, up_field);
+		}
+	}
+
+	Field up_left_field = { row_number + 1, col_number - 1 };
+	if (up_left_field.row_number < BOARD_MAP_ROWS
+			&& up_left_field.col_number >= 0) {
+		if (is_board_field_set(board, up_left_field)) {
+			return 1;
+		}
+	}
+
+	Field up_right_field = { row_number + 1, col_number + 1 };
+	if (up_right_field.row_number < BOARD_MAP_ROWS
+			&& up_right_field.col_number < BOARD_MAP_COLUMNS) {
+		if (is_board_field_set(board, up_right_field)) {
+			return 1;
+		}
+	}
+
+	Field down_field = { row_number - 1, col_number };
+	if (down_field.row_number >= 0) {
+		if (is_board_field_set(board, down_field)) {
+			return 1;
+		}
+	}
+
+	Field down_left_field = { row_number - 1, col_number - 1 };
+	if (down_left_field.row_number >= 0 && down_left_field.col_number >= 0) {
+		if (is_board_field_set(board, down_left_field)) {
+			return 1;
+		}
+	}
+
+	Field down_right_field = { row_number - 1, col_number + 1 };
+	if (down_right_field.row_number >= 0
+			&& down_left_field.col_number < BOARD_MAP_COLUMNS) {
+		if (is_board_field_set(board, down_right_field)) {
+			return 1;
+		}
+	}
+
+	Field left_field = { row_number, col_number - 1 };
+	if (left_field.col_number >= 0) {
+		if (is_board_field_set(board, left_field)) {
+			return 1;
+		}
+	}
+
+	Field right_field = { row_number, col_number + 1 };
+	if (right_field.col_number < BOARD_MAP_COLUMNS) {
+		if (is_board_field_set(board, right_field)) {
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
+
 Position map_field_to_position(Field field) {
 	Position sprite_position = { field.col_number * FIELD_DIMENSION,
 			field.row_number * FIELD_DIMENSION };
@@ -74,6 +143,16 @@ Field* map_position_to_fields(Position position, int row_fields_count,
 	}
 
 	return fields;
+}
+
+Field draw_top_field(const int map_width, const int map_height,
+		const int row_fields_count, const int col_fields_count) {
+	Field top_left_field;
+
+	top_left_field.row_number = rand() % (map_width - row_fields_count);
+	top_left_field.col_number = rand() % (map_height - col_fields_count);
+
+	return top_left_field;
 }
 
 void clear_board(Board *board) {

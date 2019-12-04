@@ -7,11 +7,6 @@ static Field* draw_chinchilla_fields(const int map_width, const int map_height);
 
 static Field* init_almonds_fields(Board *board, Sprite **almonds);
 static Field* draw_almonds_fields(Board *board, const int almonds_count);
-static int is_field_neighbour_set(Board *board, Field field);
-
-static Field draw_sprite_top_field(const int map_width, const int map_height,
-		const int row_fields_count, const int col_fields_count);
-
 
 int init_chinchilla_position(Board *board, Sprite *chinchilla) {
 	Field chinchilla_top_left_field = init_chinchilla_fields(board, chinchilla);
@@ -70,7 +65,7 @@ static Field* draw_chinchilla_fields(const int map_width, const int map_height) 
 		return NULL;
 	}
 
-	Field top_left_field = draw_sprite_top_field(map_width, map_height,
+	Field top_left_field = draw_top_field(map_width, map_height,
 			CHINCHILLA_ROW_FIELDS_COUNT, CHINCHILLA_COL_FIELDS_COUNT);
 
 	int field_index = 0;
@@ -106,9 +101,8 @@ static Field* draw_almonds_fields(Board *board, const int almonds_count) {
 	Field drawn_field;
 	for (int i = 0; i < almonds_count; i++) {
 		do {
-			drawn_field = draw_sprite_top_field(BOARD_MAP_ROWS,
-					BOARD_MAP_COLUMNS, ALMOND_ROW_FIELDS_COUNT,
-					ALMOND_COL_FIELDS_COUNT);
+			drawn_field = draw_top_field(BOARD_MAP_ROWS, BOARD_MAP_COLUMNS,
+					ALMOND_ROW_FIELDS_COUNT, ALMOND_COL_FIELDS_COUNT);
 		} while (is_board_field_set(board, drawn_field)
 				|| is_field_neighbour_set(board, drawn_field));
 
@@ -118,74 +112,6 @@ static Field* draw_almonds_fields(Board *board, const int almonds_count) {
 	}
 
 	return fields;
-}
-
-static int is_field_neighbour_set(Board *board, Field field) {
-	int row_number = field.row_number;
-	int col_number = field.col_number;
-
-	Field up_field = { row_number + 1, col_number };
-	if (up_field.row_number < BOARD_MAP_ROWS) {
-		if (is_board_field_set(board, up_field)) {
-			return 1;
-		} else {
-			is_field_neighbour_set(board, up_field);
-		}
-	}
-
-	Field up_left_field = { row_number + 1, col_number - 1 };
-	if (up_left_field.row_number < BOARD_MAP_ROWS
-			&& up_left_field.col_number >= 0) {
-		if (is_board_field_set(board, up_left_field)) {
-			return 1;
-		}
-	}
-
-	Field up_right_field = { row_number + 1, col_number + 1 };
-	if (up_right_field.row_number < BOARD_MAP_ROWS
-			&& up_right_field.col_number < BOARD_MAP_COLUMNS) {
-		if (is_board_field_set(board, up_right_field)) {
-			return 1;
-		}
-	}
-
-	Field down_field = { row_number - 1, col_number };
-	if (down_field.row_number >= 0) {
-		if (is_board_field_set(board, down_field)) {
-			return 1;
-		}
-	}
-
-	Field down_left_field = { row_number - 1, col_number - 1 };
-	if (down_left_field.row_number >= 0 && down_left_field.col_number >= 0) {
-		if (is_board_field_set(board, down_left_field)) {
-			return 1;
-		}
-	}
-
-	Field down_right_field = { row_number - 1, col_number + 1 };
-	if (down_right_field.row_number >= 0
-			&& down_left_field.col_number < BOARD_MAP_COLUMNS) {
-		if (is_board_field_set(board, down_right_field)) {
-			return 1;
-		}
-	}
-
-	Field left_field = { row_number, col_number - 1 };
-	if (left_field.col_number >= 0) {
-		if (is_board_field_set(board, left_field)) {
-			return 1;
-		}
-	}
-
-	Field right_field = { row_number, col_number + 1 };
-	if (right_field.col_number < BOARD_MAP_COLUMNS) {
-		if (is_board_field_set(board, right_field)) {
-			return 1;
-		}
-	}
-
-	return 0;
 }
 
 int reset_sprites_position(Board *board, Sprite *chinchilla, Sprite **almonds) {
@@ -207,14 +133,4 @@ int reset_sprites_position(Board *board, Sprite *chinchilla, Sprite **almonds) {
 	}
 
 	return 0;
-}
-
-static Field draw_sprite_top_field(const int map_width, const int map_height,
-		const int row_fields_count, const int col_fields_count) {
-	Field top_left_field;
-
-	top_left_field.row_number = rand() % (map_width - row_fields_count);
-	top_left_field.col_number = rand() % (map_height - col_fields_count);
-
-	return top_left_field;
 }
