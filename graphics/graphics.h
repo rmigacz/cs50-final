@@ -3,14 +3,6 @@
 
 #include <SDL2/SDL.h>
 
-typedef struct _Input {
-	int up;
-	int down;
-	int left;
-	int right;
-	int close_requested;
-} Input;
-
 int init_sdl();
 
 void cleanup_sdl();
