@@ -1,10 +1,9 @@
 #include "game-animation.h"
-
 #include "game-parameters.h"
-#include "../board/game-board-functions.h"
 
-#include "../graphics/graphics.h"
+#include "../board/game-board-functions.h"
 #include "../board/Position.h"
+#include "../graphics/graphics.h"
 #include "../ui/Velocity.h"
 
 static void process_key_events(Input *input);
@@ -24,10 +23,14 @@ int animate(Window *window, Footer *footer, Board *board, Sprite *chinchilla,
 		Sprite **almonds) {
 	int result = 0;
 
-	result = init_sprites_position(board, chinchilla, almonds);
-	if (result == 1) {
-		printf("Error while initialization of sprites positions \n");
-		return result;
+	if (init_chinchilla_position(board, chinchilla) != 0) {
+		printf("Error while initialization of chinchilla position \n");
+		return 1;
+	}
+
+	if (init_almonds_position(board, almonds) != 0) {
+		printf("Error while initialization of almonds position \n");
+		return 1;
 	}
 
 	Velocity chinchilla_velocity = { 0, 0 };

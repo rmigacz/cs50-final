@@ -1,10 +1,10 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "Sprite.h"
-
-#include <SDL2/SDL.h>
 #include <stdlib.h>
+#include <SDL2/SDL.h>
+
+#include "Sprite.h"
 
 typedef struct _Window {
 	SDL_Window *window;

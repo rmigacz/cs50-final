@@ -2,50 +2,47 @@
 
 #include "../core/game-parameters.h"
 
-static int init_chinchilla_position(Board *board, Sprite *chinchilla);
 static Field init_chinchilla_fields(Board *board, Sprite *chinchilla);
 static Field* draw_chinchilla_fields(const int map_width, const int map_height);
 
-static int init_almonds_position(Board *board, Sprite **almonds);
 static Field* init_almonds_fields(Board *board, Sprite **almonds);
 static Field* draw_almonds_fields(Board *board, const int almonds_count);
 static int is_field_neighbour_set(Board *board, Field field);
 
-static Field* map_sprite_position_to_fields(Position position,
-		int row_fields_count, int col_fields_count);
-static Position map_sprite_field_to_position(Field field);
 static Field draw_sprite_top_field(const int map_width, const int map_height,
 		const int row_fields_count, const int col_fields_count);
 
-int init_sprites_position(Board *board, Sprite *chinchilla, Sprite **almonds) {
-	int result = 0;
 
-	result = init_chinchilla_position(board, chinchilla);
-	if (result == 1) {
-		printf("Error while initialization of chinchilla position \n");
-		return result;
-	}
-	result = init_almonds_position(board, almonds);
-	if (result == 1) {
-		printf("Error while initialization of almonds positions \n");
-		return result;
-	}
-
-	return result;
-}
-
-static int init_chinchilla_position(Board *board, Sprite *chinchilla) {
+int init_chinchilla_position(Board *board, Sprite *chinchilla) {
 	Field chinchilla_top_left_field = init_chinchilla_fields(board, chinchilla);
 	if (chinchilla_top_left_field.value == -1) {
 		printf("Failed to initialize chinchilla fields \n");
 		return 1;
 	}
 
-	Position chinchilla_position = map_sprite_field_to_position(
+	Position chinchilla_position = map_field_to_position(
 			chinchilla_top_left_field);
 	set_sprite_position(chinchilla, (int) chinchilla_position.x_pos,
 			(int) chinchilla_position.y_pos);
 
+	return 0;
+}
+
+int init_almonds_position(Board *board, Sprite **almonds) {
+	Field *almonds_fields = init_almonds_fields(board, almonds);
+	if (almonds_fields == NULL) {
+		printf("Failed to initialize almonds fields \n");
+		return 1;
+	}
+
+	Position almond_position = { 0, 0 };
+	for (int i = 0; i < ALMONDS_COUNT; i++) {
+		almond_position = map_field_to_position(almonds_fields[i]);
+		set_sprite_position(almonds[i], (int) almond_position.x_pos,
+				(int) almond_position.y_pos);
+	}
+
+	free(almonds_fields);
 	return 0;
 }
 
@@ -88,23 +85,6 @@ static Field* draw_chinchilla_fields(const int map_width, const int map_height) 
 	return fields;
 }
 
-static int init_almonds_position(Board *board, Sprite **almonds) {
-	Field *almonds_fields = init_almonds_fields(board, almonds);
-	if (almonds_fields == NULL) {
-		printf("Failed to initialize almonds fields \n");
-		return 1;
-	}
-
-	Position almond_position = { 0, 0 };
-	for (int i = 0; i < ALMONDS_COUNT; i++) {
-		almond_position = map_sprite_field_to_position(almonds_fields[i]);
-		set_sprite_position(almonds[i], (int) almond_position.x_pos,
-				(int) almond_position.y_pos);
-	}
-
-	free(almonds_fields);
-	return 0;
-}
 
 static Field* init_almonds_fields(Board *board, Sprite **almonds) {
 	Field *almonds_fields = draw_almonds_fields(board, ALMONDS_COUNT);
@@ -211,7 +191,7 @@ static int is_field_neighbour_set(Board *board, Field field) {
 int reset_sprites_position(Board *board, Sprite *chinchilla, Sprite **almonds) {
 	Position chinchilla_current_position = { get_sprite_x_position(chinchilla),
 			get_sprite_y_position(chinchilla) };
-	Field *chinchilla_fields = map_sprite_position_to_fields(
+	Field *chinchilla_fields = map_position_to_fields(
 			chinchilla_current_position, CHINCHILLA_ROW_FIELDS_COUNT,
 			CHINCHILLA_COL_FIELDS_COUNT);
 	if (chinchilla_fields == NULL) {
@@ -227,34 +207,6 @@ int reset_sprites_position(Board *board, Sprite *chinchilla, Sprite **almonds) {
 	}
 
 	return 0;
-}
-
-static Field* map_sprite_position_to_fields(Position position,
-		int row_fields_count, int col_fields_count) {
-	Field *fields = malloc(sizeof(Field) * row_fields_count * col_fields_count);
-	if (fields == NULL) {
-		printf("Could not allocate memory for array of fields \n");
-		return NULL;
-	}
-
-	int field_index = 0;
-	for (int i = 0; i < row_fields_count; i++) {
-		for (int j = 0; j < col_fields_count; j++) {
-			fields[field_index].row_number = floor(
-					position.y_pos / FIELD_DIMENSION) + i;
-			fields[field_index].col_number = floor(
-					position.x_pos / FIELD_DIMENSION) + j;
-			field_index++;
-		}
-	}
-
-	return fields;
-}
-
-static Position map_sprite_field_to_position(Field field) {
-	Position sprite_position = { field.col_number * FIELD_DIMENSION,
-			field.row_number * FIELD_DIMENSION };
-	return sprite_position;
 }
 
 static Field draw_sprite_top_field(const int map_width, const int map_height,

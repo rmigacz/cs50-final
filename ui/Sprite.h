@@ -1,8 +1,8 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include <SDL2/SDL.h>
 #include <stdlib.h>
+#include <SDL2/SDL.h>
 
 typedef struct _Sprite {
 	SDL_Texture *texture;

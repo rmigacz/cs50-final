@@ -1,8 +1,8 @@
-#include "graphics.h"
-
 #include <stdlib.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+
+#include "graphics.h"
 
 int init_sdl() {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0) {

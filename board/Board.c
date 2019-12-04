@@ -1,6 +1,8 @@
+#include <math.h>
+
 #include "Board.h"
 
-#include <math.h>
+#include "../core/game-parameters.h"
 
 Board* create_board(const int map_rows, const int map_columns) {
 	Board *map = malloc(sizeof(Board));
@@ -44,6 +46,34 @@ void set_board_fields(Board *map, Field *fields, const int fields_count) {
 
 int is_board_field_set(Board *board, Field field) {
 	return board->fields[field.row_number][field.col_number] == 1;
+}
+
+Position map_field_to_position(Field field) {
+	Position sprite_position = { field.col_number * FIELD_DIMENSION,
+			field.row_number * FIELD_DIMENSION };
+	return sprite_position;
+}
+
+Field* map_position_to_fields(Position position, int row_fields_count,
+		int col_fields_count) {
+	Field *fields = malloc(sizeof(Field) * row_fields_count * col_fields_count);
+	if (fields == NULL) {
+		printf("Could not allocate memory for array of fields \n");
+		return NULL;
+	}
+
+	int field_index = 0;
+	for (int i = 0; i < row_fields_count; i++) {
+		for (int j = 0; j < col_fields_count; j++) {
+			fields[field_index].row_number = floor(
+					position.y_pos / FIELD_DIMENSION) + i;
+			fields[field_index].col_number = floor(
+					position.x_pos / FIELD_DIMENSION) + j;
+			field_index++;
+		}
+	}
+
+	return fields;
 }
 
 void clear_board(Board *board) {

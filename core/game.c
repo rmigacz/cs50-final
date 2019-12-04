@@ -1,15 +1,14 @@
-#include "game-parameters.h"
+#include <SDL2/SDL_ttf.h>
+#include <time.h>
+
 #include "game-animation.h"
+#include "game-parameters.h"
 
 #include "../graphics/graphics.h"
 #include "../board/Board.h"
 #include "../ui/Window.h"
 #include "../ui/Footer.h"
 #include "../ui/Sprite.h"
-
-
-#include <SDL2/SDL_ttf.h>
-#include <time.h>
 
 static const char *WINDOW_TITLE = "Chinchilla The Almonds Eater";
 static const char *CHILLA_IMG = "resources/pics/chinchilla.png";
@@ -25,6 +24,7 @@ int main(void) {
 	}
 
 	int game_result = start_game();
+
 	cleanup_sdl();
 
 	return game_result;

@@ -1,9 +1,9 @@
 #ifndef FOOTER_H
 #define FOOTER_H
 
+#include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include <stdlib.h>
 
 typedef struct _Footer {
 	SDL_Rect footer_area;
