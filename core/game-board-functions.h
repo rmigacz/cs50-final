@@ -1,8 +1,8 @@
 #ifndef GAMEBOARDFUNCTIONS_H
 #define GAMEBOARDFUNCTIONS_H
 
-#include "Board.h"
-#include "Position.h"
+#include "../board/Board.h"
+#include "../board/Position.h"
 
 #include "../ui/Sprite.h"
 

@@ -1,6 +1,6 @@
 #include "game-board-functions.h"
 
-#include "../core/game-parameters.h"
+#include "game-parameters.h"
 
 static Field init_chinchilla_fields(Board *board, Sprite *chinchilla);
 static Field* draw_chinchilla_fields(const int map_width, const int map_height);
