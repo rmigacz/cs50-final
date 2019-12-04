@@ -16,7 +16,7 @@ int init_chinchilla_position(Board *board, Sprite *chinchilla) {
 	}
 
 	Position chinchilla_position = map_field_to_position(
-			chinchilla_top_left_field);
+			chinchilla_top_left_field, FIELD_DIMENSION);
 	set_sprite_position(chinchilla, (int) chinchilla_position.x_pos,
 			(int) chinchilla_position.y_pos);
 
@@ -32,7 +32,8 @@ int init_almonds_position(Board *board, Sprite **almonds) {
 
 	Position almond_position = { 0, 0 };
 	for (int i = 0; i < ALMONDS_COUNT; i++) {
-		almond_position = map_field_to_position(almonds_fields[i]);
+		almond_position = map_field_to_position(almonds_fields[i],
+				FIELD_DIMENSION);
 		set_sprite_position(almonds[i], (int) almond_position.x_pos,
 				(int) almond_position.y_pos);
 	}
@@ -104,7 +105,8 @@ static Field* draw_almonds_fields(Board *board, const int almonds_count) {
 			drawn_field = draw_top_field(BOARD_MAP_ROWS, BOARD_MAP_COLUMNS,
 					ALMOND_ROW_FIELDS_COUNT, ALMOND_COL_FIELDS_COUNT);
 		} while (is_board_field_set(board, drawn_field)
-				|| is_field_neighbour_set(board, drawn_field));
+				|| is_field_neighbour_set(board, drawn_field, BOARD_MAP_ROWS,
+						BOARD_MAP_COLUMNS));
 
 		fields[i].row_number = drawn_field.row_number;
 		fields[i].col_number = drawn_field.col_number;
@@ -119,7 +121,7 @@ int reset_sprites_position(Board *board, Sprite *chinchilla, Sprite **almonds) {
 			get_sprite_y_position(chinchilla) };
 	Field *chinchilla_fields = map_position_to_fields(
 			chinchilla_current_position, CHINCHILLA_ROW_FIELDS_COUNT,
-			CHINCHILLA_COL_FIELDS_COUNT);
+			CHINCHILLA_COL_FIELDS_COUNT, FIELD_DIMENSION);
 	if (chinchilla_fields == NULL) {
 		printf("Could not map chinchilla position to fields \n");
 		return 1;

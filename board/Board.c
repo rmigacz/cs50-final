@@ -2,8 +2,6 @@
 
 #include "Board.h"
 
-#include "../core/game-parameters.h"
-
 Board* create_board(const int map_rows, const int map_columns) {
 	Board *map = malloc(sizeof(Board));
 	if (map == NULL) {
@@ -48,21 +46,23 @@ int is_board_field_set(Board *board, Field field) {
 	return board->fields[field.row_number][field.col_number] == 1;
 }
 
-int is_field_neighbour_set(Board *board, Field field) {
+int is_field_neighbour_set(Board *board, Field field, int board_map_rows,
+		int board_map_columns) {
 	int row_number = field.row_number;
 	int col_number = field.col_number;
 
 	Field up_field = { row_number + 1, col_number };
-	if (up_field.row_number < BOARD_MAP_ROWS) {
+	if (up_field.row_number < board_map_rows) {
 		if (is_board_field_set(board, up_field)) {
 			return 1;
 		} else {
-			is_field_neighbour_set(board, up_field);
+			is_field_neighbour_set(board, up_field, board_map_rows,
+					board_map_columns);
 		}
 	}
 
 	Field up_left_field = { row_number + 1, col_number - 1 };
-	if (up_left_field.row_number < BOARD_MAP_ROWS
+	if (up_left_field.row_number < board_map_rows
 			&& up_left_field.col_number >= 0) {
 		if (is_board_field_set(board, up_left_field)) {
 			return 1;
@@ -70,8 +70,8 @@ int is_field_neighbour_set(Board *board, Field field) {
 	}
 
 	Field up_right_field = { row_number + 1, col_number + 1 };
-	if (up_right_field.row_number < BOARD_MAP_ROWS
-			&& up_right_field.col_number < BOARD_MAP_COLUMNS) {
+	if (up_right_field.row_number < board_map_rows
+			&& up_right_field.col_number < board_map_columns) {
 		if (is_board_field_set(board, up_right_field)) {
 			return 1;
 		}
@@ -93,7 +93,7 @@ int is_field_neighbour_set(Board *board, Field field) {
 
 	Field down_right_field = { row_number - 1, col_number + 1 };
 	if (down_right_field.row_number >= 0
-			&& down_left_field.col_number < BOARD_MAP_COLUMNS) {
+			&& down_left_field.col_number < board_map_columns) {
 		if (is_board_field_set(board, down_right_field)) {
 			return 1;
 		}
@@ -107,7 +107,7 @@ int is_field_neighbour_set(Board *board, Field field) {
 	}
 
 	Field right_field = { row_number, col_number + 1 };
-	if (right_field.col_number < BOARD_MAP_COLUMNS) {
+	if (right_field.col_number < board_map_columns) {
 		if (is_board_field_set(board, right_field)) {
 			return 1;
 		}
@@ -117,14 +117,14 @@ int is_field_neighbour_set(Board *board, Field field) {
 }
 
 
-Position map_field_to_position(Field field) {
-	Position sprite_position = { field.col_number * FIELD_DIMENSION,
-			field.row_number * FIELD_DIMENSION };
+Position map_field_to_position(Field field, int field_dimension) {
+	Position sprite_position = { field.col_number * field_dimension,
+			field.row_number * field_dimension };
 	return sprite_position;
 }
 
 Field* map_position_to_fields(Position position, int row_fields_count,
-		int col_fields_count) {
+		int col_fields_count, int field_dimension) {
 	Field *fields = malloc(sizeof(Field) * row_fields_count * col_fields_count);
 	if (fields == NULL) {
 		printf("Could not allocate memory for array of fields \n");
@@ -135,9 +135,9 @@ Field* map_position_to_fields(Position position, int row_fields_count,
 	for (int i = 0; i < row_fields_count; i++) {
 		for (int j = 0; j < col_fields_count; j++) {
 			fields[field_index].row_number = floor(
-					position.y_pos / FIELD_DIMENSION) + i;
+					position.y_pos / field_dimension) + i;
 			fields[field_index].col_number = floor(
-					position.x_pos / FIELD_DIMENSION) + j;
+					position.x_pos / field_dimension) + j;
 			field_index++;
 		}
 	}
