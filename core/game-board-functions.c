@@ -42,6 +42,28 @@ int init_almonds_position(Board *board, Sprite **almonds) {
 	return 0;
 }
 
+int reset_sprites_position(Board *board, Sprite *chinchilla, Sprite **almonds) {
+	Position chinchilla_current_position = { get_sprite_x_position(chinchilla),
+			get_sprite_y_position(chinchilla) };
+	Field *chinchilla_fields = map_position_to_fields(
+			chinchilla_current_position, CHINCHILLA_ROW_FIELDS_COUNT,
+			CHINCHILLA_COL_FIELDS_COUNT, FIELD_DIMENSION);
+	if (chinchilla_fields == NULL) {
+		printf("Could not map chinchilla position to fields \n");
+		return 1;
+	}
+
+	set_board_fields(board, chinchilla_fields, CHINCHILLA_FIELDS_COUNT);
+
+	if (init_almonds_position(board, almonds) == 1) {
+		printf("Error while initialization of almonds positions \n");
+		return 1;
+	}
+
+	return 0;
+}
+
+
 static Field init_chinchilla_fields(Board *board, Sprite *chinchilla) {
 	Field *chinchilla_fields = draw_chinchilla_fields(BOARD_MAP_ROWS,
 			BOARD_MAP_COLUMNS);
@@ -105,8 +127,7 @@ static Field* draw_almonds_fields(Board *board, const int almonds_count) {
 			drawn_field = draw_top_field(BOARD_MAP_ROWS, BOARD_MAP_COLUMNS,
 					ALMOND_ROW_FIELDS_COUNT, ALMOND_COL_FIELDS_COUNT);
 		} while (is_board_field_set(board, drawn_field)
-				|| is_field_neighbour_set(board, drawn_field, BOARD_MAP_ROWS,
-						BOARD_MAP_COLUMNS));
+				|| is_field_neighbour_set(board, drawn_field));
 
 		fields[i].row_number = drawn_field.row_number;
 		fields[i].col_number = drawn_field.col_number;
@@ -114,25 +135,4 @@ static Field* draw_almonds_fields(Board *board, const int almonds_count) {
 	}
 
 	return fields;
-}
-
-int reset_sprites_position(Board *board, Sprite *chinchilla, Sprite **almonds) {
-	Position chinchilla_current_position = { get_sprite_x_position(chinchilla),
-			get_sprite_y_position(chinchilla) };
-	Field *chinchilla_fields = map_position_to_fields(
-			chinchilla_current_position, CHINCHILLA_ROW_FIELDS_COUNT,
-			CHINCHILLA_COL_FIELDS_COUNT, FIELD_DIMENSION);
-	if (chinchilla_fields == NULL) {
-		printf("Could not map chinchilla position to fields \n");
-		return 1;
-	}
-
-	set_board_fields(board, chinchilla_fields, CHINCHILLA_FIELDS_COUNT);
-
-	if (init_almonds_position(board, almonds) == 1) {
-		printf("Error while initialization of almonds positions \n");
-		return 1;
-	}
-
-	return 0;
 }

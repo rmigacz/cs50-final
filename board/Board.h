@@ -8,8 +8,8 @@
 
 typedef struct _Board {
 	int **fields;
-	int map_width;
-	int map_height;
+	int rows_count;
+	int columns_count;
 } Board;
 
 typedef struct _Field {
@@ -18,7 +18,7 @@ typedef struct _Field {
 	int value;
 } Field;
 
-Board* create_board(const int map_width, const int map_height);
+Board* create_board(const int rows_count, const int columns_count);
 
 void free_board(Board *board);
 
@@ -26,13 +26,12 @@ void set_board_fields(Board *board, Field *fields, const int fields_count);
 
 int is_board_field_set(Board *board, Field field);
 
-int is_field_neighbour_set(Board *board, Field field, int board_map_rows,
-		int board_map_columns);
+int is_field_neighbour_set(Board *board, Field field);
 
-Position map_field_to_position(Field field, int field_dimension);
+Position map_field_to_position(Field field, const int field_dimension);
 
-Field* map_position_to_fields(Position position, int row_fields_count,
-		int col_fields_count, int field_dimension);
+Field* map_position_to_fields(Position position, const int row_fields_count,
+		const int col_fields_count, const int field_dimension);
 
 Field draw_top_field(const int map_width, const int map_height,
 		const int row_fields_count, const int col_fields_count);

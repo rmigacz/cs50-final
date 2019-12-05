@@ -2,43 +2,43 @@
 
 #include "Board.h"
 
-Board* create_board(const int map_rows, const int map_columns) {
-	Board *map = malloc(sizeof(Board));
-	if (map == NULL) {
+Board* create_board(const int rows_count, const int columns_count) {
+	Board *board = malloc(sizeof(Board));
+	if (board == NULL) {
 		return NULL;
 	}
 
-	map->map_width = map_rows;
-	map->map_height = map_columns;
+	board->rows_count = rows_count;
+	board->columns_count = columns_count;
 
-	map->fields = (int**) calloc(map_rows, sizeof(int*));
-	if (map->fields == NULL) {
-		free_board(map);
+	board->fields = (int**) calloc(rows_count, sizeof(int*));
+	if (board->fields == NULL) {
+		free_board(board);
 		return NULL;
 	}
 
-	for (int row = 0; row < map_rows; row++) {
-		map->fields[row] = (int*) calloc(map_columns, sizeof(int));
-		if (map->fields[row] == NULL) {
-			free_board(map);
+	for (int row = 0; row < rows_count; row++) {
+		board->fields[row] = (int*) calloc(columns_count, sizeof(int));
+		if (board->fields[row] == NULL) {
+			free_board(board);
 			return NULL;
 		}
 	}
 
-	return map;
+	return board;
 }
 
-void free_board(Board *map) {
-	for (int row = 0; row < map->map_width; row++) {
-		free(map->fields[row]), map->fields[row] = NULL;
+void free_board(Board *board) {
+	for (int row = 0; row < board->rows_count; row++) {
+		free(board->fields[row]), board->fields[row] = NULL;
 	}
-	free(map->fields), map->fields = NULL;
-	free(map), map = NULL;
+	free(board->fields), board->fields = NULL;
+	free(board), board = NULL;
 }
 
-void set_board_fields(Board *map, Field *fields, const int fields_count) {
+void set_board_fields(Board *board, Field *fields, const int fields_count) {
 	for (int i = 0; i < fields_count; i++) {
-		map->fields[fields[i].row_number][fields[i].col_number] = 1;
+		board->fields[fields[i].row_number][fields[i].col_number] = 1;
 	}
 }
 
@@ -46,23 +46,24 @@ int is_board_field_set(Board *board, Field field) {
 	return board->fields[field.row_number][field.col_number] == 1;
 }
 
-int is_field_neighbour_set(Board *board, Field field, int board_map_rows,
-		int board_map_columns) {
-	int row_number = field.row_number;
-	int col_number = field.col_number;
+int is_field_neighbour_set(Board *board, Field field) {
+	const int rows_count = board->rows_count;
+	const int columns_count = board->columns_count;
+
+	const int row_number = field.row_number;
+	const int col_number = field.col_number;
 
 	Field up_field = { row_number + 1, col_number };
-	if (up_field.row_number < board_map_rows) {
+	if (up_field.row_number < rows_count) {
 		if (is_board_field_set(board, up_field)) {
 			return 1;
 		} else {
-			is_field_neighbour_set(board, up_field, board_map_rows,
-					board_map_columns);
+			is_field_neighbour_set(board, up_field);
 		}
 	}
 
 	Field up_left_field = { row_number + 1, col_number - 1 };
-	if (up_left_field.row_number < board_map_rows
+	if (up_left_field.row_number < rows_count
 			&& up_left_field.col_number >= 0) {
 		if (is_board_field_set(board, up_left_field)) {
 			return 1;
@@ -70,8 +71,8 @@ int is_field_neighbour_set(Board *board, Field field, int board_map_rows,
 	}
 
 	Field up_right_field = { row_number + 1, col_number + 1 };
-	if (up_right_field.row_number < board_map_rows
-			&& up_right_field.col_number < board_map_columns) {
+	if (up_right_field.row_number < rows_count
+			&& up_right_field.col_number < columns_count) {
 		if (is_board_field_set(board, up_right_field)) {
 			return 1;
 		}
@@ -93,7 +94,7 @@ int is_field_neighbour_set(Board *board, Field field, int board_map_rows,
 
 	Field down_right_field = { row_number - 1, col_number + 1 };
 	if (down_right_field.row_number >= 0
-			&& down_left_field.col_number < board_map_columns) {
+			&& down_left_field.col_number < columns_count) {
 		if (is_board_field_set(board, down_right_field)) {
 			return 1;
 		}
@@ -107,7 +108,7 @@ int is_field_neighbour_set(Board *board, Field field, int board_map_rows,
 	}
 
 	Field right_field = { row_number, col_number + 1 };
-	if (right_field.col_number < board_map_columns) {
+	if (right_field.col_number < columns_count) {
 		if (is_board_field_set(board, right_field)) {
 			return 1;
 		}
@@ -117,14 +118,14 @@ int is_field_neighbour_set(Board *board, Field field, int board_map_rows,
 }
 
 
-Position map_field_to_position(Field field, int field_dimension) {
+Position map_field_to_position(Field field, const int field_dimension) {
 	Position sprite_position = { field.col_number * field_dimension,
 			field.row_number * field_dimension };
 	return sprite_position;
 }
 
-Field* map_position_to_fields(Position position, int row_fields_count,
-		int col_fields_count, int field_dimension) {
+Field* map_position_to_fields(Position position, const int row_fields_count,
+		const int col_fields_count, const int field_dimension) {
 	Field *fields = malloc(sizeof(Field) * row_fields_count * col_fields_count);
 	if (fields == NULL) {
 		printf("Could not allocate memory for array of fields \n");
@@ -156,22 +157,22 @@ Field draw_top_field(const int map_width, const int map_height,
 }
 
 void clear_board(Board *board) {
-	const int BOARD_WIDTH = board->map_width;
-	const int BOARD_HEIGHT = board->map_height;
+	const int rows_count = board->rows_count;
+	const int columns_count = board->columns_count;
 
-	for (int i = 0; i < BOARD_WIDTH; i++) {
-		for (int j = 0; j < BOARD_HEIGHT; j++) {
+	for (int i = 0; i < rows_count; i++) {
+		for (int j = 0; j < columns_count; j++) {
 			board->fields[i][j] = 0;
 		}
 	}
 }
 
 void print_board(Board *board) {
-	const int BOARD_WIDTH = board->map_width;
-	const int BOARD_HEIGHT = board->map_height;
+	const int rows_count = board->rows_count;
+	const int columns_count = board->columns_count;
 
-	for (int i = 0; i < BOARD_WIDTH; i++) {
-		for (int j = 0; j < BOARD_HEIGHT; j++) {
+	for (int i = 0; i < rows_count; i++) {
+		for (int j = 0; j < columns_count; j++) {
 			printf("%d ", board->fields[i][j]);
 		}
 		printf("\n");
