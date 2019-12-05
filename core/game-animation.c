@@ -15,7 +15,6 @@ static Position detect_chinchilla_bounds_collision(Position position);
 static int detect_chinchilla_collision_with_almonds(Position position,
 		Sprite **almonds);
 
-static void add_almonds_to_window(Sprite **almonds, Window *window);
 static int update_window_footer(Footer *footer, Window *window, char *message);
 
 int animate(Window *window, Footer *footer, Board *board, Sprite *chinchilla,
@@ -68,7 +67,7 @@ int animate(Window *window, Footer *footer, Board *board, Sprite *chinchilla,
 
 		clear_window(window);
 		add_sprite_to_window(chinchilla, window);
-		add_almonds_to_window(almonds, window);
+		add_sprites_to_window(almonds, window, ALMONDS_COUNT);
 
 		current_time = (SDL_GetTicks() - start_time) / 1000;
 		sprintf(footer_message, "Eaten almonds: %d Time: %d", eaten_almonds,
@@ -157,12 +156,6 @@ static int detect_chinchilla_collision_with_almonds(Position position,
 	}
 
 	return 0;
-}
-
-static void add_almonds_to_window(Sprite **almonds, Window *window) {
-	for (int i = 0; i < ALMONDS_COUNT; i++) {
-		add_sprite_to_window(almonds[i], window);
-	}
 }
 
 static int update_window_footer(Footer *footer, Window *window, char *message) {

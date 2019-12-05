@@ -19,6 +19,9 @@ void clear_window(Window *window);
 
 void add_sprite_to_window(Sprite *sprite, Window *window);
 
+void add_sprites_to_window(Sprite **sprites, Window *window,
+		const int sprites_count);
+
 void add_texture_to_window(SDL_Texture *texture, SDL_Rect rectangle,
 		Window *window);
 

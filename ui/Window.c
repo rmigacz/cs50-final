@@ -40,6 +40,13 @@ void add_sprite_to_window(Sprite *sprite, Window *window) {
 			&(sprite->rectangle));
 }
 
+void add_sprites_to_window(Sprite **sprites, Window *window,
+		const int sprites_count) {
+	for (int i = 0; i < sprites_count; i++) {
+		add_sprite_to_window(sprites[i], window);
+	}
+}
+
 void add_surface_to_window(SDL_Surface *surface, int x, int y, Window *window) {
 	SDL_Surface *window_surface = SDL_GetWindowSurface(window->window);
 	apply_surface(x, y, surface, window_surface);
