@@ -146,12 +146,13 @@ Field* map_position_to_fields(Position position, const int row_fields_count,
 	return fields;
 }
 
-Field draw_top_field(const int map_width, const int map_height,
-		const int row_fields_count, const int col_fields_count) {
+Field draw_top_left_field(Board *board, const int row_fields_count,
+		const int col_fields_count) {
 	Field top_left_field;
 
-	top_left_field.row_number = rand() % (map_width - row_fields_count);
-	top_left_field.col_number = rand() % (map_height - col_fields_count);
+	top_left_field.row_number = rand() % (board->rows_count - row_fields_count);
+	top_left_field.col_number = rand()
+			% (board->columns_count - col_fields_count);
 
 	return top_left_field;
 }

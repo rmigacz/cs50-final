@@ -33,8 +33,8 @@ Position map_field_to_position(Field field, const int field_dimension);
 Field* map_position_to_fields(Position position, const int row_fields_count,
 		const int col_fields_count, const int field_dimension);
 
-Field draw_top_field(const int map_width, const int map_height,
-		const int row_fields_count, const int col_fields_count);
+Field draw_top_left_field(Board *board, const int row_fields_count,
+		const int col_fields_count);
 
 void clear_board(Board *board);
 

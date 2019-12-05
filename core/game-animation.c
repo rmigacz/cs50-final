@@ -10,10 +10,10 @@
 static Velocity determine_chinchilla_velocity(Input pressed_key);
 static Position determine_chinchilla_position(Position position,
 		Velocity velocity);
-static Position detect_chinchilla_bounds_collision(Position position);
 
-static int detect_chinchilla_collision_with_almonds(Position position,
-		Sprite **almonds);
+static Position detect_chinchilla_bounds_collision(Position position);
+static int detect_chinchilla_collision_with_almonds(
+		Position chinchilla_position, Sprite **almonds);
 
 static int update_window_footer(Footer *footer, Window *window, char *message);
 
@@ -134,8 +134,9 @@ static Position detect_chinchilla_bounds_collision(Position position) {
 	return position;
 }
 
-static int detect_chinchilla_collision_with_almonds(Position position,
-		Sprite **almonds) {
+static int detect_chinchilla_collision_with_almonds(
+		Position chinchilla_position, Sprite **almonds) {
+	
 	int AMORTISATION = 49;
 	int x_almond_position = 0;
 	int y_almond_position = 0;
@@ -145,11 +146,13 @@ static int detect_chinchilla_collision_with_almonds(Position position,
 		y_almond_position = get_sprite_y_position(almonds[i]);
 
 		// see: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-		if (position.x_pos < x_almond_position + ALMOND_WIDTH - AMORTISATION
-				&& position.x_pos + CHINCHILLA_WIDTH
+		if (chinchilla_position.x_pos
+				< x_almond_position + ALMOND_WIDTH - AMORTISATION
+				&& chinchilla_position.x_pos + CHINCHILLA_WIDTH
 						> x_almond_position + AMORTISATION
-				&& position.y_pos < y_almond_position + ALMOND_HEIGHT
-				&& CHINCHILLA_HEIGHT + position.y_pos > y_almond_position) {
+				&& chinchilla_position.y_pos < y_almond_position + ALMOND_HEIGHT
+				&& CHINCHILLA_HEIGHT + chinchilla_position.y_pos
+						> y_almond_position) {
 			return 1;
 		}
 

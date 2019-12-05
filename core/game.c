@@ -49,7 +49,7 @@ static int start_game() {
 		return 1;
 	}
 
-	Board *board = create_board(BOARD_MAP_ROWS, BOARD_MAP_COLUMNS);
+	Board *board = create_board(BOARD_ROWS_COUNT, BOARD_COLUMNS_COUNT);
 	if (board == NULL) {
 		printf("Failed to create board");
 		free_window(window);
