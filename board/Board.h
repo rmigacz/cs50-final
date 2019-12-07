@@ -1,9 +1,6 @@
 #ifndef BOARDFUNC_H
 #define BOARDFUNC_H
 
-#include <stdlib.h>
-#include <SDL2/SDL.h>
-
 #include "Position.h"
 
 typedef struct _Board {

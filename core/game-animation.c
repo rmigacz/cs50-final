@@ -1,6 +1,6 @@
 #include "game-animation.h"
-#include "game-parameters.h"
 
+#include "game-parameters.h"
 #include "game-board-functions.h"
 #include "../board/Position.h"
 #include "../graphics/graphics.h"

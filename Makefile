@@ -1,13 +1,31 @@
 CC := gcc
-CFLAGS := `sdl2-config --libs --cflags` -lSDL2_ttf -ggdb3 -O0 --std=c99 -Wall -lSDL2_image -lm
+CFLAGS := `sdl2-config --libs --cflags` -lSDL2_ttf --std=c99 -Wall -lSDL2_image -lm
 
-HDRS := graphics/graphics.h ui/Window.h ui/Footer.h ui/Input.h board/Board.h ui/Sprite.h board/Position.h ui/Velocity.h core/game-parameters.h core/game-animation.h core/game-board-functions.h
-SRCS := graphics/graphics.c core/game.c ui/Window.c ui/Footer.c ui/Input.c board/Board.c ui/Sprite.c core/game-animation.c core/game-board-functions.c
+HDRS := graphics/graphics.h \
+ board/Board.h \
+ board/Position.h \
+ ui/Footer.h \
+ ui/Input.h \
+ ui/Sprite.h \
+ ui/Velocity.h \
+ ui/Window.h \
+ core/game-animation.h \
+ core/game-board-functions.h \
+ core/game-parameters.h \
+
+SRCS := graphics/graphics.c \
+ board/Board.c \
+ ui/Footer.c \
+ ui/Input.c \
+ ui/Sprite.c \
+ ui/Window.c \
+ core/game-animation.c \
+ core/game-board-functions.c \
+ core/game.c \
 
 OBJS := $(SRCS:.c=.o)
 
-
-EXEC := chinchilla-game
+EXEC := game
 
 all: $(EXEC)
 
@@ -19,5 +37,3 @@ $(OBJS): $(@:.o=.c) $(HDRS) Makefile
 		
 clean:
 	rm -f $(EXEC) $(OBJS)
-
-.PHONY: all clean

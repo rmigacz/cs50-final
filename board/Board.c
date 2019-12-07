@@ -1,6 +1,8 @@
-#include <math.h>
-
 #include "Board.h"
+
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 Board* create_board(const int rows_count, const int columns_count) {
 	Board *board = malloc(sizeof(Board));
