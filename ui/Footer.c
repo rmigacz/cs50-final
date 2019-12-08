@@ -15,7 +15,7 @@ Footer* create_footer(int x, int y, int w, int h) {
 	area.h = h;
 	footer->footer_area = area;
 
-	SDL_Color message_color = { 0, 255, 0 };
+	SDL_Color message_color = { 128, 128, 128 };
 	footer->message_color = message_color;
 
 	footer->font = TTF_OpenFont("./resources/fonts/DroidSans.ttf", 32);
