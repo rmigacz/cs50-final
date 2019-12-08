@@ -22,6 +22,12 @@ Window* create_window(const char *title, const int width, const int height) {
 		return NULL;
 	}
 
+	if (set_renderer_color(window->renderer, 255, 255, 255) != 0) {
+		printf("error setting renderer color: %s\n", SDL_GetError());
+		free_window(window);
+		return NULL;
+	}
+
 	return window;
 }
 

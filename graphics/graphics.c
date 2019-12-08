@@ -32,6 +32,10 @@ SDL_Renderer* create_renderer(SDL_Window *window) {
 	return SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 }
 
+int set_renderer_color(SDL_Renderer *renderer, int r, int g, int b) {
+	return SDL_SetRenderDrawColor(renderer, r, g, b, 255);
+}
+
 SDL_Texture* create_texture_with_image(SDL_Renderer *renderer,
 		const char *img_path) {
 	SDL_Texture *texture = NULL;

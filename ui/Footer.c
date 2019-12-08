@@ -33,7 +33,7 @@ void set_footer_message(char *message, Footer *footer) {
 }
 
 SDL_Texture* create_footer_texture(Footer *footer, SDL_Renderer *renderer) {
-	SDL_Surface *surface = TTF_RenderText_Solid(footer->font, footer->message,
+	SDL_Surface *surface = TTF_RenderText_Blended(footer->font, footer->message,
 			footer->message_color);
 	if (surface == NULL) {
 		printf("Error while creating footer's surface: %s", TTF_GetError());
