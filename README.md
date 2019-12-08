@@ -6,7 +6,7 @@
 The project is a 2D game in which you are becoming a Chinchilla and you have to
 eat as many almonds as possible in a certain period of time.
 
-![GameGif](https://raw.githubusercontent.com/rmigacz/cs50-final/assets/gameplay.gif)
+![GameGif](https://raw.githubusercontent.com/rmigacz/cs50-final/assets/cs50-final-state-gameplay.gif)
 
 It is an attempt of rewriting the first project from the course made in Scratch: <br/>
 https://scratch.mit.edu/projects/54065950/ </br>
