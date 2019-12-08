@@ -15,8 +15,7 @@ http://cs50.tv/2015/fall/#seminars
 
 ## The main targets of creating Chinchilla The Almonds Eater game
 1. Learn more about programming in C language by writing a relatively simple game
-2. Writing it according to the common Clean Code rules
-3. Complete the course :)
+2. Complete the course :)
 
 ## Technologies used, development environment
 The game is written in C language with SDL library. It has been made in Eclipse IDE,
@@ -25,69 +24,73 @@ dedicated Makefile.
 
 ## Project structure and description of the most important parts
 ### Projects modules
-The project consists of three main folders (modules):
-- include - contains header files,
-- resources - contains fonts and picutres used in game,
-- src - source files which implement "interfaces" from the
-include folder.
+The project consists of 5 main folders (modules):
+- **board** - responsible for tracking game elements position,
+- **core** - main module with core game logic; depends on the all other modules,
+- **graphics** - encapsulates creation of SDL-related elements, e.g. *SDL_Window*, *SDL_Texture*,
+- **resources** - contains fonts and picutres used in game,
+- **ui** - consists of game elements like *Window*, *Sprite*; depends on graphics module.
 
 <pre>
 .
-├── include
+├── board
+│   ├── Board.c
 │   ├── Board.h
-│   ├── Footer.h
+│   └── Position.h
+├── core
+│   ├── game-animation.c
 │   ├── game-animation.h
+│   ├── game-board-functions.c
 │   ├── game-board-functions.h
-│   ├── game-errno.h
-│   ├── game-functions.h
-│   ├── game-parameters.h
-│   ├── game-sdl-utils.h
-│   ├── Position.h
-│   ├── Sprite.h
-│   ├── Velocity.h
-│   └── Window.h
+│   ├── game.c
+│   └── game-parameters.h
+├── graphics
+│   ├── graphics.c
+│   └── graphics.h
 ├── Makefile
+├── README.md
 ├── resources
 │   ├── fonts
 │   │   └── DroidSans.ttf
 │   └── pics
 │       ├── almond.png
 │       └── chinchilla.png
-└── src
-    ├── Board.c
+└── ui
     ├── Footer.c
-    ├── game-animation.c
-    ├── game-board-functions.c
-    ├── game.c
-    ├── game-functions.c
-    ├── game-sdl-utils.c
+    ├── Footer.h
+    ├── Input.c
+    ├── Input.h
     ├── Sprite.c
-    └── Window.c
+    ├── Sprite.h
+    ├── Velocity.h
+    ├── Window.c
+    └── Window.h
 </pre>
 
-### Objects
+### Classes
 
-Files which names start with upper case letter should be interpreted as an objects.
-Chinchilla and each almond are a type of Sprite, Board contains information which 
-Field is free or not in the Window, ect.
+Files which names start with upper case letter could be interpreted as a pseudo classes.
+Chinchilla and each almond are a type of **Sprite**, **Board** contains information which 
+**Field** is free or not in the **Window**, ect.
 
 ### Animation
 
-The core part of the game is placed in a game-animation file. It contains different functions, among others, functions
-responsible for moving the Chinchilla in the Window, detecting Sprites collision.
+The core part of the game is placed in a **core** module. It contains different functions, 
+among others, functions responsible for moving the Chinchilla in the Window or detecting 
+Sprites collision. The main game loop is a part of the **animate** function, placed
+in the **game-animation.c** file.
 
 ### Board
 
-The game-animation uses the Board object. The idea of using it was to simplify 
-setting the Sprites positions.
-The Board contains a two-dimensional array of game fields. As a field we understand
-the part of a Window with assigned number of row and column and information whether
-the part is taken by the game Sprite. </br></br>
-In the game-parameters file global variables are defined including Window dimensions,
-Field dimension, and row and column Sprites fields count. Almond
+The idea of the **Board** "class" was to simplify tracking the Sprites positions.
+The **Board** contains a two-dimensional array of game fields. As a field we understand
+the part of a **Window** with assigned number of row and column and information whether
+the part is taken by the game **Sprite**. </br></br>
+In the **game-parameters** file global variables are defined including **Window** dimensions,
+**Field** dimension, and row and column **Sprites** fields count. Almond
 takes one field (one row, one column) and Chinchilla takes 5 rows and 4 columns.
-Below is presented example of Board state - Chinchilla's top left field is I12
-and some Almonds are located at D16, R1, O14.
+Below is presented example of **Board** state - Chinchilla's top left field is **I12**
+and some Almonds are located at **D16**, **R1**, **O14**.
 
 |    | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | R |
 |----|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
