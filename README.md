@@ -10,20 +10,17 @@ eat as many almonds as possible in a certain period of time.
 
 It is an attempt of rewriting the first project from the course made in Scratch: <br/>
 https://scratch.mit.edu/projects/54065950/ </br>
-inspired by seminar "Writing 2D Games in C using SDL": </br>
+Inspired by seminar *Writing 2D Games in C using SDL*: </br>
 http://cs50.tv/2015/fall/#seminars
 
-## The main targets of creating Chinchilla The Almonds Eater game
-1. Learn more about programming in C language by writing a relatively simple game
-2. Complete the course :)
+## Technologies used
+- [C language](https://en.wikipedia.org/wiki/C_(programming_language))
+- [GCC](https://gcc.gnu.org/)
+- [make](https://www.gnu.org/software/make/)
+- [SDL 2.0](https://www.libsdl.org/index.php)
 
-## Technologies used, development environment
-The game is written in C language with SDL library. It has been made in Eclipse IDE,
-Neon 2, release 4.6.2 in Ubuntu MATE 16.04.2 LTS. The project is being built with
-dedicated Makefile.
-
-## Project structure and description of the most important parts
-### Projects modules
+## Project structure & description
+### Modules
 The project consists of 5 main folders (modules):
 - **board** - responsible for tracking game elements position,
 - **core** - main module with core game logic; depends on the all other modules,
@@ -83,14 +80,25 @@ in the **game-animation.c** file.
 ### Board
 
 The idea of the **Board** "class" was to simplify tracking the Sprites positions.
-The **Board** contains a two-dimensional array of game fields. As a field we understand
-the part of a **Window** with assigned number of row and column and information whether
-the part is taken by the game **Sprite**. </br></br>
-In the **game-parameters** file global variables are defined including **Window** dimensions,
-**Field** dimension, and row and column **Sprites** fields count. Almond
-takes one field (one row, one column) and Chinchilla takes 5 rows and 4 columns.
-Below is presented example of **Board** state - Chinchilla's top left field is **I12**
-and some Almonds are located at **D16**, **R1**, **O14**.
+
+The **Board** contains information about game **fields** (two dimensional array of integers). 
+As a **field** we understand the part of a **Window** with assigned number of **row** (the array row number)
+and **column** (the array column number) and **information whether the part is taken** 
+(element of the array) by the game **Sprite**.
+
+In the **game-parameters.h** file, global variables are defined including:
+- **Window** dimension (equal width and height)
+- **Field** dimension (equal width and height)
+- **Board** parameters:
+	- width and height
+	- rows and columns (field) count
+- **Sprites** parameters:
+	- width and height
+	- rows and columns (fields) count
+
+**Almond** Sprite takes one field (one row, one column) and **Chinchilla** Sprite takes 20 fields
+(5 rows and 4 columns). Below is presented example of **Board** state - Chinchilla's top left 
+field is **I12** and some Almonds are located at **D16**, **R1**, **O14**.
 
 |    | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | R |
 |----|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
