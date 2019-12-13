@@ -91,7 +91,7 @@ In the **game-parameters.h** file, global variables are defined including:
 - **Field** dimension (equal width and height)
 - **Board** parameters:
 	- width and height
-	- rows and columns (field) count
+	- rows and columns (fields) count
 - **Sprites** parameters:
 	- width and height
 	- rows and columns (fields) count
