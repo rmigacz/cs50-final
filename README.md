@@ -81,8 +81,8 @@ in the **game-animation.c** file.
 
 The idea of the **Board** "class" was to simplify tracking the Sprites positions.
 
-The **Board** contains information about game **fields** (two dimensional array of integers). 
-As a **field** we understand the part of a **Window** with assigned number of **row** (the array row number)
+The **Board** contains information about **game Fields** (two dimensional array of integers). 
+As a **Field** we understand the part of a **Window** with assigned number of **row** (the array row number)
 and **column** (the array column number) and **information whether the part is taken** 
 (element of the array) by the game **Sprite**.
 
@@ -96,7 +96,7 @@ In the **game-parameters.h** file, global variables are defined including:
 	- width and height
 	- rows and columns (fields) count
 
-**Almond** Sprite takes one field (one row, one column) and **Chinchilla** Sprite takes 20 fields
+An **Almond** Sprite takes one field (one row, one column) and **Chinchilla** Sprite takes 20 fields
 (5 rows and 4 columns). Below is presented example of **Board** state - Chinchilla's top left 
 field is **I12** and some Almonds are located at **D16**, **R1**, **O14**.
 
